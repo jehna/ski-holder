@@ -75,6 +75,31 @@ export default function ReplicadApp() {
           -webkit-appearance: none;
           margin: 0;
         }
+        .main-layout {
+          display: flex;
+          justify-content: space-between;
+          gap: 24px;
+        }
+        .params-section {
+          min-width: 200px;
+        }
+        .viewer-section {
+          height: 400px;
+          flex: 1;
+        }
+        @media (max-width: 768px) {
+          .main-layout {
+            flex-direction: column;
+          }
+          .params-section {
+            min-width: unset;
+            width: 100%;
+          }
+          .viewer-section {
+            height: 300px;
+            width: 100%;
+          }
+        }
       `}</style>
       <h1>Ski Holder Designer</h1>
       <p>
@@ -87,14 +112,8 @@ export default function ReplicadApp() {
           replicad
         </a>
       </p>
-      <section
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "24px",
-        }}
-      >
-        <div style={{ minWidth: "200px" }}>
+      <section className="main-layout">
+        <div className="params-section">
           <h3>Parameters</h3>
           <div style={labelStyle}>
             <label htmlFor="thickness">Wall Thickness</label>
@@ -180,7 +199,7 @@ export default function ReplicadApp() {
             Download STL
           </button>
         </div>
-        <section style={{ height: "400px", flex: 1 }}>
+        <section className="viewer-section">
           {mesh ? (
             <ThreeContext>
               <ReplicadMesh edges={mesh.edges} faces={mesh.faces} />

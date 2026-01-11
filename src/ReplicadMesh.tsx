@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useEffect } from "react";
+import { useRef, useLayoutEffect, useEffect, memo } from "react";
 import { useThree } from "@react-three/fiber";
 import { BufferGeometry } from "three";
 import {
@@ -7,22 +7,34 @@ import {
   syncLinesFromFaces,
 } from "replicad-threejs-helper";
 
-export default React.memo(function ShapeMeshes({ faces, edges }) {
+interface FaceMesh {
+  vertices: number[];
+  triangles: number[];
+  normals: number[];
+}
+
+interface EdgeMesh {
+  vertices: number[];
+  edges: number[];
+}
+
+interface ShapeMeshesProps {
+  faces?: FaceMesh;
+  edges?: EdgeMesh;
+}
+
+export default memo(function ShapeMeshes({ faces, edges }: ShapeMeshesProps) {
   const { invalidate } = useThree();
 
   const body = useRef(new BufferGeometry());
   const lines = useRef(new BufferGeometry());
 
   useLayoutEffect(() => {
-    // We use the three helpers to synchronise the buffer geometry with the
-    // new data from the parameters
     if (faces) syncFaces(body.current, faces);
 
     if (edges) syncLines(lines.current, edges);
     else if (faces) syncLinesFromFaces(lines.current, body.current);
 
-    // We have configured the canvas to only refresh when there is a change,
-    // the invalidate function is here to tell it to recompute
     invalidate();
   }, [faces, edges, invalidate]);
 
@@ -38,7 +50,6 @@ export default React.memo(function ShapeMeshes({ faces, edges }) {
   return (
     <group>
       <mesh geometry={body.current}>
-        {/* the offsets are here to avoid z fighting between the mesh and the lines */}
         <meshStandardMaterial
           color="#5a8296"
           polygonOffset

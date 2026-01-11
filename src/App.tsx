@@ -40,8 +40,20 @@ export default function ReplicadApp() {
   }, [params]);
 
   const inputStyle: CSSProperties = {
-    width: "80px",
-    marginLeft: "8px",
+    width: "60px",
+    textAlign: "right",
+    border: "none",
+    borderBottom: "1px solid #ccc",
+    background: "transparent",
+    MozAppearance: "textfield",
+    WebkitAppearance: "none",
+    appearance: "textfield",
+  };
+
+  const inputWrapperStyle: CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    gap: "2px",
   };
 
   const labelStyle: CSSProperties = {
@@ -57,6 +69,13 @@ export default function ReplicadApp() {
 
   return (
     <main>
+      <style>{`
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+      `}</style>
       <h1>Ski Holder Designer</h1>
       <p>
         Built with{" "}
@@ -76,71 +95,86 @@ export default function ReplicadApp() {
         }}
       >
         <div style={{ minWidth: "200px" }}>
-          <h3>Parameters (mm)</h3>
+          <h3>Parameters</h3>
           <div style={labelStyle}>
             <label htmlFor="thickness">Wall Thickness</label>
-            <input
-              id="thickness"
-              type="number"
-              step="1"
-              min="4"
-              max="20"
-              value={params.thickness}
-              onChange={handleChange("thickness")}
-              style={inputStyle}
-            />
+            <div style={inputWrapperStyle}>
+              <input
+                id="thickness"
+                type="number"
+                step="1"
+                min="4"
+                max="20"
+                value={params.thickness}
+                onChange={handleChange("thickness")}
+                style={inputStyle}
+              />
+              <span>mm</span>
+            </div>
           </div>
           <div style={labelStyle}>
             <label htmlFor="height">Extrusion Height</label>
-            <input
-              id="height"
-              type="number"
-              step="1"
-              min="5"
-              max="30"
-              value={params.height}
-              onChange={handleChange("height")}
-              style={inputStyle}
-            />
+            <div style={inputWrapperStyle}>
+              <input
+                id="height"
+                type="number"
+                step="1"
+                min="5"
+                max="30"
+                value={params.height}
+                onChange={handleChange("height")}
+                style={inputStyle}
+              />
+              <span>mm</span>
+            </div>
           </div>
           <div style={labelStyle}>
             <label htmlFor="skiThickness">Ski Thickness</label>
-            <input
-              id="skiThickness"
-              type="number"
-              step="1"
-              min="10"
-              max="60"
-              value={params.skiThickness}
-              onChange={handleChange("skiThickness")}
-              style={inputStyle}
-            />
+            <div style={inputWrapperStyle}>
+              <input
+                id="skiThickness"
+                type="number"
+                step="1"
+                min="10"
+                max="60"
+                value={params.skiThickness}
+                onChange={handleChange("skiThickness")}
+                style={inputStyle}
+              />
+              <span>mm</span>
+            </div>
           </div>
           <div style={labelStyle}>
             <label htmlFor="skiHeight">Ski Height</label>
-            <input
-              id="skiHeight"
-              type="number"
-              step="1"
-              min="30"
-              max="150"
-              value={params.skiHeight}
-              onChange={handleChange("skiHeight")}
-              style={inputStyle}
-            />
+            <div style={inputWrapperStyle}>
+              <input
+                id="skiHeight"
+                type="number"
+                step="1"
+                min="30"
+                max="150"
+                value={params.skiHeight}
+                onChange={handleChange("skiHeight")}
+                style={inputStyle}
+              />
+              <span>mm</span>
+            </div>
           </div>
           <div style={labelStyle}>
             <label htmlFor="poleThickness">Pole Diameter</label>
-            <input
-              id="poleThickness"
-              type="number"
-              step="1"
-              min="10"
-              max="40"
-              value={params.poleThickness}
-              onChange={handleChange("poleThickness")}
-              style={inputStyle}
-            />
+            <div style={inputWrapperStyle}>
+              <input
+                id="poleThickness"
+                type="number"
+                step="1"
+                min="10"
+                max="40"
+                value={params.poleThickness}
+                onChange={handleChange("poleThickness")}
+                style={inputStyle}
+              />
+              <span>mm</span>
+            </div>
           </div>
           <button onClick={downloadModel} style={{ marginTop: "16px", width: "100%" }}>
             Download STL

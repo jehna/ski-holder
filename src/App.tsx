@@ -1,7 +1,7 @@
 import { useState, useEffect, CSSProperties, ChangeEvent } from "react";
 
 import FileSaver from "file-saver";
-import { wrap, Remote } from "comlink";
+import { wrap } from "comlink";
 
 import ThreeContext from "./ThreeContext";
 import ReplicadMesh from "./ReplicadMesh";
@@ -13,7 +13,7 @@ interface WorkerAPI {
   createBlob: (params: SkiHolderParams) => Promise<Blob>;
   createMesh: (params: SkiHolderParams) => Promise<{
     faces: { vertices: number[]; triangles: number[]; normals: number[] };
-    edges: { vertices: number[]; edges: number[] };
+    edges: { lines: number[]; edgeGroups?: { start: number; count: number; edgeId: number }[] };
   }>;
 }
 
@@ -23,7 +23,7 @@ export default function ReplicadApp() {
   const [params, setParams] = useState<SkiHolderParams>(defaultParams);
   const [mesh, setMesh] = useState<{
     faces: { vertices: number[]; triangles: number[]; normals: number[] };
-    edges: { vertices: number[]; edges: number[] };
+    edges: { lines: number[]; edgeGroups?: { start: number; count: number; edgeId: number }[] };
   } | null>(null);
 
   const updateParam = (key: keyof SkiHolderParams, value: number) => {

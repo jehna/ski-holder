@@ -1,5 +1,6 @@
 import opencascade from "replicad-opencascadejs/src/replicad_single.js";
 import opencascadeWasm from "replicad-opencascadejs/src/replicad_single.wasm?url";
+import { OpenCascadeInstance } from "replicad-opencascadejs";
 import { setOC } from "replicad";
 import { expose } from "comlink";
 
@@ -9,7 +10,7 @@ let loaded = false;
 const init = async () => {
   if (loaded) return Promise.resolve(true);
 
-  const OC = await opencascade({
+  const OC = await (opencascade as (options: { locateFile: () => string }) => Promise<OpenCascadeInstance>)({
     locateFile: () => opencascadeWasm,
   });
 

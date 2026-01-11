@@ -14,8 +14,8 @@ interface FaceMesh {
 }
 
 interface EdgeMesh {
-  vertices: number[];
-  edges: number[];
+  lines: number[];
+  edgeGroups?: { start: number; count: number; edgeId: number }[];
 }
 
 interface ShapeMeshesProps {
